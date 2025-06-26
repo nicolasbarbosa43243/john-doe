@@ -1,15 +1,3 @@
-      -- Lil edited by gObl00x (User: random_hacke6) --
-             -- Credts to the Creator --
-
--- gObl00x Notification
-
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "gOb scripts";
-	Text = "LOL Time to Exploit!";
-	Icon = "rbxthumb://type=Asset&id=126389658690593&w=150&h=150"})
-Duration = 15;
-
-
 -- Soundtrack
    writefile("Sin Dragon Soundtrack.mp3", game:HttpGet("https://github.com/gObl00x/Soundtracks/raw/refs/heads/main/Sin%20Dragon%20Soundtrack.mp3"))
    local sound = Instance.new("Sound")
