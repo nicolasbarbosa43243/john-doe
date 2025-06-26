@@ -7,13 +7,6 @@
 --This edit is by CKbackup (Sugarie Saffron)--------------------
 --Credits to whoever the hell made the original Solaris---------
 
--- gObl00x Notification
-game:GetService("StarterGui"):SetCore("SendNotification", { 
-	Title = "gOb fixed-scripts";
-	Text = "LOL Time to Exploit!";
-	Icon = "rbxthumb://type=Asset&id=126389658690593&w=150&h=150"})
-Duration = 15;
-
 Player=game:GetService("Players").LocalPlayer
 Character=Player.Character
 PlayerGui=Player.PlayerGui
