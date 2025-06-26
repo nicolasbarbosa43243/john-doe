@@ -1,3 +1,12 @@
+-- Soundtrack
+writefile("John dor.mp3", game:HttpGet("https://raw.githubusercontent.com/bito33212/Ender/main/The%20Corruption%20John%20Doe%20Theme.mp3"))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("John dor.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Parent = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+sound:Play()
 
 ------------
 --John Doe--
