@@ -1,3 +1,18 @@
+-- Soundtrack
+writefile("Good Cop Bad Cop OST.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Good%20Cop%20Bad%20Cop%20OST%20-%20Soundtrack%20%F0%9F%8E%B6%F0%9F%91%AE%F0%9F%8E%B6.mp3"))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("Good Cop Bad Cop OST.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Name = "GoodCopTheme"
+
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+sound.Parent = hrp
+sound:Play()
+
 --//====================================================\\--
 --||         GOOD COP BAD COP BY SHACKLUSTER
 --\\====================================================//--
