@@ -1,3 +1,18 @@
+-- Soundtrack
+writefile("Grave Soul Theme.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/A%20GRAVE%20SOUL%20(NOW%2C%20RUN)%20%EF%BD%9C%20Last%20Man%20Standing%20Theme%20(FORSAKEN).mp3"))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("Grave Soul Theme.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Name = "GraveSoulTheme"
+
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+sound.Parent = hrp
+sound:Play()
+
 Player=game:GetService("Players").LocalPlayer
 Character=Player.Character 
 PlayerGui=Player.PlayerGui
