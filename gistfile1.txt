@@ -1,3 +1,34 @@
+-- Script de voo ao pressionar a tecla F
+local Player = game.Players.LocalPlayer
+local Character = Player.Character or Player.CharacterAdded:Wait()
+local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+local flying = false
+
+-- Função para voar por 3 segundos
+function flyUp()
+    if flying then return end
+    flying = true
+
+    local BodyVelocity = Instance.new("BodyVelocity")
+    BodyVelocity.Velocity = Vector3.new(0, 100, 0) -- sobe com força
+    BodyVelocity.MaxForce = Vector3.new(0, math.huge, 0)
+    BodyVelocity.Parent = HumanoidRootPart
+
+    wait(3)
+
+    BodyVelocity:Destroy()
+    flying = false
+end
+
+-- Detecta tecla F
+game:GetService("UserInputService").InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if input.KeyCode == Enum.KeyCode.F then
+        flyUp()
+    end
+end)
+
 -- Soundtrack
 writefile("Ender music.mp3", game:HttpGet("https://raw.githubusercontent.com/bito33212/Ender/main/%5BHIGH%20QUALITY%5D%20HACKLORD%20SHEDLETSKY%20LMS%20UST.mp3"))
 
