@@ -1,0 +1,97 @@
+-- Soundtrack
+writefile("CHICKEN BEATBOX.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/ShoToX%20-%20CHICKEN%20BEATBOX%20REMIX.mp3"))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("CHICKEN BEATBOX.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Name = "ChickenBeat"
+
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+sound.Parent = hrp
+sound:Play()
+
+-- Criando a Tool
+local tool = Instance.new("Tool")
+tool.Name = "SoundItem"
+tool.RequiresHandle = true
+
+-- Handle
+local handle = Instance.new("Part")
+handle.Name = "Handle"
+handle.Size = Vector3.new(1, 5, 1)
+handle.Anchored = false
+handle.CanCollide = false
+handle.Parent = tool
+
+-- Som principal
+local sound = Instance.new("Sound")
+sound.SoundId = "rbxassetid://17803968700"
+sound.Volume = 4
+sound.Parent = handle
+
+-- Adicionando a Tool ao jogador
+local player = game.Players.LocalPlayer
+tool.Parent = player.Backpack
+
+-- Quando ativar a Tool
+tool.Activated:Connect(function()
+    local character = player.Character
+    if not character or not character:FindFirstChild("HumanoidRootPart") then return end
+    local humanoid = character:FindFirstChild("Humanoid")
+    if not humanoid then return end
+
+    -- Tocar animação
+    local anim = Instance.new("Animation")
+    anim.AnimationId = "rbxassetid://218504594"
+    local animator = humanoid:FindFirstChildOfClass("Animator") or Instance.new("Animator", humanoid)
+    local track = animator:LoadAnimation(anim)
+    track:Play()
+
+    task.wait(0.1)
+
+    -- Raycast para detectar acerto
+    local origin = character.HumanoidRootPart.Position
+    local direction = character.HumanoidRootPart.CFrame.LookVector * 5
+    local ray = Ray.new(origin, direction)
+    local hit, _ = workspace:FindPartOnRayWithIgnoreList(ray, {character})
+
+    if hit and hit.Parent and hit.Parent:FindFirstChild("Humanoid") then
+        local targetHumanoid = hit.Parent:FindFirstChild("Humanoid")
+        local targetCharacter = hit.Parent
+
+        -- Tocar som de ataque
+        sound:Play()
+
+        -- Esperar 1 segundo e tocar segundo som
+        task.wait(1)
+        local secondSound = Instance.new("Sound")
+        secondSound.SoundId = "rbxassetid://123505593557440"
+        secondSound.Volume = 5
+        secondSound.Parent = handle
+        secondSound:Play()
+
+        -- Ativar ragdoll e aplicar impulso
+        targetHumanoid.PlatformStand = true
+        targetHumanoid:ChangeState(Enum.HumanoidStateType.Physics)
+
+        for _, part in pairs(targetCharacter:GetChildren()) do
+            if part:IsA("BasePart") then
+                part.CanCollide = true
+                part.Anchored = false
+
+                local bv = Instance.new("BodyVelocity")
+                bv.MaxForce = Vector3.new(100000, 100000, 100000)
+                bv.Velocity = (part.Position - character.HumanoidRootPart.Position).Unit * 50 + Vector3.new(0, 30, 0)
+                bv.Parent = part
+                game:GetService("Debris"):AddItem(bv, 0.5)
+            end
+        end
+
+        -- Limpar o segundo som após alguns segundos
+        game:GetService("Debris"):AddItem(secondSound, 5)
+    end
+end)
+
