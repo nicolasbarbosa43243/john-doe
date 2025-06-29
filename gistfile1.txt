@@ -29,6 +29,7 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
     end
 end)
 
+-- soundstrack
 -writefile("SF2 Titan.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Shadow%20Fight%202%20Titan%20(7%20Act%20Titan%20Battle).mp3"))
 local s3 = Instance.new("Sound")
 s3.SoundId = getcustomasset("SF2 Titan.mp3")
