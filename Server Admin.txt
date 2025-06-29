@@ -2,15 +2,15 @@
     --||			   CREATED BY SHACKLUSTER
     --\\====================================================//--
 
--- Server Admin
--- Soundtrack
-   writefile("Server Admin Soundtrack.mp3", game:HttpGet("https://github.com/gObl00x/Soundtracks/raw/refs/heads/main/Server%20Admin%20Soundtrack.mp3"))
-   local sound = Instance.new("Sound")
-   sound.SoundId = getcustomasset("Server Admin Soundtrack.mp3")
-   sound.Volume = 1
-   sound.Looped = true
-   sound.Parent = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
-   sound:Play()
+writefile("SF2 MAY.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Shadow%20Fight%202%20OST%20-%20MAY.mp3"))
+local s2 = Instance.new("Sound")
+s2.SoundId = getcustomasset("SF2 MAY.mp3")
+s2.Volume = 1
+s2.Looped = true
+s2.Name = "SF2_MAY"
+s2.Parent = game.Players.LocalPlayer.Character:WaitForChild("HumanoidRootPart")
+s2:Play()
+
 
 Player = game.Players.LocalPlayer
 PlayerGui = Player.PlayerGui
