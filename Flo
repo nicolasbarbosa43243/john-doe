@@ -86,7 +86,7 @@ Lighting.Brightness = 2
 Lighting.FogEnd = 100000
 Lighting.FogStart = 0
 Lighting.FogColor = Color3.new(255, 0, 0)
-Lighting.Ambient = Color3.new(199, 0, )
+Lighting.Ambient = Color3.new(199, 0, 0)
 Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
 
 local kickTool = Instance.new("Tool")
@@ -116,7 +116,7 @@ local function setupDoubleClick(tool, onDoubleClick, onDeactivate)
         end
         lastClickTime = now
 
-        if clicks == 2 then
+        if clicks == 1 then
             onDoubleClick()
             resetClicks()
         end
