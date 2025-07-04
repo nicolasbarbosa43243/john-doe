@@ -1,183 +1,112 @@
--- Baixa e salva o áudio localmente
-writefile("Forsaken FLOWERS.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Forsaken%20FLOWERS%20LMS%20short%20animation%20(%2B%20FLOWERS%20DC2%20MODEL%20DOWNLOAD)%20%5BZsG8rNJmW0A%5D.mp3"))
+-- FLOWERS Ritual by kj_32261 🌺 CORRUPTED VERSION
 
--- Cria o som
-local sound = Instance.new("Sound")
-sound.SoundId = getcustomasset("Forsaken FLOWERS.mp3")
-sound.Volume = 1
-sound.Looped = true
-sound.Name = "FLOWERS_THEME"
+local plr = game.Players.LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
 
--- Adiciona ao personagem e toca
-local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
-
-sound.Parent = hrp
-sound:Play()
-
-local Players = game:GetService("Players")
-local Lighting = game:GetService("Lighting")
-local LocalPlayer = Players.LocalPlayer
-local mouse = LocalPlayer:GetMouse()
-
-local function getCharacter()
-    if LocalPlayer.Character then
-        return LocalPlayer.Character
-    end
-    return LocalPlayer.CharacterAdded:Wait()
+-- Remove roupas e escurece corpo
+for _, v in pairs(char:GetDescendants()) do
+	if v:IsA("Accessory") or v:IsA("Shirt") or v:IsA("Pants") or v:IsA("ShirtGraphic") then
+		v:Destroy()
+	elseif v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
+		v.Color = Color3.new(0, 0, 0)
+		v.Material = Enum.Material.SmoothPlastic
+	end
 end
 
-local char = getCharacter()
-local torso = char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso") or char:FindFirstChild("HumanoidRootPart")
-
-for _, item in ipairs(char:GetChildren()) do
-    if item:IsA("Accessory") or item:IsA("Clothing") or item:IsA("Shirt") or item:IsA("Pants") then
-        item:Destroy()
-    elseif item:IsA("Decal") and item.Name == "face" then
-        item:Destroy()
-    end
-end
-
-for _, part in ipairs(char:GetDescendants()) do
-    if part:IsA("Decal") and part.Name == "face" then
-        part:Destroy()
-    elseif part:IsA("BasePart") then
-        part.Transparency = 1
-    end
-end
-
-local fogGui
-if torso then
-    fogGui = Instance.new("BillboardGui", torso)
-    fogGui.Name = "Unknown"
-    fogGui.Size = UDim2.new(15, 0, 15, 0)
-    fogGui.StudsOffset = Vector3.new(0, 3.5, 0)
-    fogGui.AlwaysOnTop = true
-
-    local img = Instance.new("ImageLabel", fogGui)
-    img.Name = "פרחים"
-    img.Size = UDim2.new(1, 0, 1, 0)
-    img.BackgroundTransparency = 1
-    img.Image = "rbxassetid://105190503785408"
-
-    local light = Instance.new("PointLight", torso)
-    light.Color = Color3.new(0.6, 0, 0)
-    light.Range = 15
-    light.Brightness = 5
-end
-
-local sound = Instance.new("Sound", char)
-sound.SoundId = "rbxassetid://9114057128"
-sound.Volume = 5
-sound.Looped = true
-sound:Play()
-
+-- Remove animações e congela personagem
+local anim = char:FindFirstChild("Animate")
+if anim then anim:Destroy() end
 local humanoid = char:FindFirstChildOfClass("Humanoid")
 if humanoid then
-    humanoid.WalkSpeed = 3
-    humanoid.JumpPower = 0
-    humanoid.Died:Connect(function()
-        LocalPlayer:Kick("Server crashed")
-    end)
+	humanoid.WalkSpeed = 0
+	humanoid.JumpPower = 0
 end
 
-Lighting.ClockTime = 0
-Lighting.Brightness = 2
-Lighting.FogEnd = 100000
-Lighting.FogStart = 0
-Lighting.FogColor = Color3.new(1, 1, 1)
-Lighting.Ambient = Color3.new(1, 1, 1)
-Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+-- Ritual visual
+local gui = Instance.new("ScreenGui", game.CoreGui)
+gui.Name = "FlowersRitual"
 
-local kickTool = Instance.new("Tool")
-kickTool.Name = "COVER THE HEARS"
-kickTool.RequiresHandle = false
-kickTool.Parent = LocalPlayer.Backpack
+local bg = Instance.new("Frame", gui)
+bg.Size = UDim2.new(1,0,1,0)
+bg.BackgroundColor3 = Color3.new(1,0,0)
 
-local teleportTool = Instance.new("Tool")
-teleportTool.Name = "Teleport"
-teleportTool.RequiresHandle = false
-teleportTool.Parent = LocalPlayer.Backpack
+local text = Instance.new("TextLabel", gui)
+text.Size = UDim2.new(1, 0, 0.2, 0)
+text.Position = UDim2.new(0, 0, 0.4, 0)
+text.Text = "פרחים"
+text.Font = Enum.Font.Arcade
+text.TextColor3 = Color3.new(0,0,0)
+text.TextScaled = true
+text.BackgroundTransparency = 1
 
-local function setupDoubleClick(tool, onDoubleClick, onDeactivate)
-    local clicks = 0
-    local lastClickTime = 0
+-- Texto tremendo
+spawn(function()
+	while gui and gui.Parent do
+		text.Position = UDim2.new(0, math.random(-3,3), 0.4, math.random(-3,3))
+		wait(0.05)
+	end
+end)
 
-    local function resetClicks()
-        clicks = 0
-    end
+-- Botão invisível
+local btn = Instance.new("TextButton", gui)
+btn.Size = UDim2.new(1,0,1,0)
+btn.Position = UDim2.new(0,0,0,0)
+btn.TextTransparency = 1
+btn.BackgroundTransparency = 1
 
-    local function onClick()
-        local now = tick()
-        if now - lastClickTime < 0.4 then
-            clicks = clicks + 1
-        else
-            clicks = 1
-        end
-        lastClickTime = now
+btn.MouseButton1Click:Connect(function()
+	gui:Destroy()
 
-        if clicks == 1 then
-            onDoubleClick()
-            resetClicks()
-        end
-    end
+	-- 🌒 Céu fica vermelho
+	local lighting = game:GetService("Lighting")
+	lighting.Ambient = Color3.new(155, 0, 0)
+	lighting.OutdoorAmbient = Color3.new(0.5, 0, 0)
+	lighting.FogColor = Color3.new(155, 0, 0)
+	lighting.FogEnd = 1000
+	lighting.FogStart = 0
 
-    tool.Activated:Connect(onClick)
-    tool.Deactivated:Connect(onDeactivate)
-end
+	-- Congela todos os jogadores
+	for _, p in pairs(game.Players:GetPlayers()) do
+		if p ~= plr and p.Character and p.Character:FindFirstChild("Humanoid") then
+			local h = p.Character:FindFirstChildOfClass("Humanoid")
+			h.WalkSpeed = 0
+			h.JumpPower = 0
+		end
+	end
 
-local deleteLoop = false
-local function startDeletingOthers()
-    deleteLoop = true
-    task.spawn(function()
-        while deleteLoop do
-            for _, player in ipairs(Players:GetPlayers()) do
-                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Humanoid") then
-                    player.Character:Destroy()
-                end
-            end
-            for _, item in ipairs(Players:GetChildren()) do
-                if item:IsA("Player") and item ~= LocalPlayer then
-                    item:Destroy()
-                end
-            end
-            for _, model in ipairs(workspace:GetChildren()) do
-                if model:IsA("Model") and model:FindFirstChildOfClass("Humanoid") and model ~= char then
-                    model:Destroy()
-                end
-            end
-            task.wait(0.25)
-        end
-    end)
-end
+	-- TOQUE = MORTE
+	local function killTouch(victim)
+		if victim:IsA("Player") and victim ~= plr then
+			local char = victim.Character
+			if char then
+				for _, part in pairs(char:GetChildren()) do
+					if part:IsA("BasePart") then
+						part:BreakJoints()
+						part.Velocity = Vector3.new(math.random(-20,20),50,math.random(-20,20))
+					end
+				end
+			end
+		end
+	end
 
-local function stopDeletingOthers()
-    deleteLoop = false
-end
+	-- Detecta toque em outros jogadores
+	for _, p in pairs(game.Players:GetPlayers()) do
+		if p ~= plr and p.Character then
+			for _, part in pairs(char:GetChildren()) do
+				if part:IsA("BasePart") then
+					part.Touched:Connect(function(hit)
+						local player = game.Players:GetPlayerFromCharacter(hit.Parent)
+						if player and player ~= plr then
+							killTouch(player)
+						end
+					end)
+				end
+			end
+		end
+	end
 
-setupDoubleClick(kickTool, startDeletingOthers, stopDeletingOthers)
-
-setupDoubleClick(teleportTool, function()
-    if mouse and mouse.Hit then
-        char:MoveTo(mouse.Hit.Position)
-    end
-end, function() end)
-
-if torso then
-    torso.Touched:Connect(function(hit)
-        local h = hit.Parent and hit.Parent:FindFirstChildOfClass("Humanoid")
-        if h and h ~= humanoid then
-            h.Health = 0
-        end
-    end)
-end
-
-task.delay(0, function()
-    local s = Instance.new("Sound", workspace)
-    s.SoundId = "rbxassetid://5159141859"
-    s.Volume = 5
-    s:Play()
-    task.delay(900000, function()
-        LocalPlayer:Kick("Client initiated disconnected")
-    end)
+	-- Executa o script Flowers
+	pcall(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/refs/heads/main/Flowers"))()
+	end)
 end)
