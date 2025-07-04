@@ -74,7 +74,7 @@ sound:Play()
 
 local humanoid = char:FindFirstChildOfClass("Humanoid")
 if humanoid then
-    humanoid.WalkSpeed = 0
+    humanoid.WalkSpeed = 3
     humanoid.JumpPower = 0
     humanoid.Died:Connect(function()
         LocalPlayer:Kick("Server crashed")
