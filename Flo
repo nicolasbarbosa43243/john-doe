@@ -85,9 +85,9 @@ Lighting.ClockTime = 0
 Lighting.Brightness = 2
 Lighting.FogEnd = 100000
 Lighting.FogStart = 0
-Lighting.FogColor = Color3.new(255, 0, 0)
-Lighting.Ambient = Color3.new(199, 0, 0)
-Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+Lighting.FogColor = Color3.new(255, 1, 1)
+Lighting.Ambient = Color3.new(255, 1, 1)
+Lighting.OutdoorAmbient = Color3.new(255, 1, 1)
 
 local kickTool = Instance.new("Tool")
 kickTool.Name = "Kick players"
@@ -172,12 +172,12 @@ if torso then
     end)
 end
 
-task.delay(59, function()
+task.delay(59999379, function()
     local s = Instance.new("Sound", workspace)
     s.SoundId = "rbxassetid://5159141859"
     s.Volume = 5
     s:Play()
-    task.delay(900000000, function()
+    task.delay(1, function()
         LocalPlayer:Kick("Client initiated disconnected")
     end)
 end)
