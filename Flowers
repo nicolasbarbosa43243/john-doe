@@ -107,6 +107,6 @@ btn.MouseButton1Click:Connect(function()
 
 	-- Executa o script Flowers
 	pcall(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/refs/heads/main/Flowers"))()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/refs/heads/main/Flo"))()
 	end)
 end)
