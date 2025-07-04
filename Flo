@@ -1,0 +1,183 @@
+-- Baixa e salva o áudio localmente
+writefile("Forsaken FLOWERS.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Forsaken%20FLOWERS%20LMS%20short%20animation%20(%2B%20FLOWERS%20DC2%20MODEL%20DOWNLOAD)%20%5BZsG8rNJmW0A%5D.mp3"))
+
+-- Cria o som
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("Forsaken FLOWERS.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Name = "FLOWERS_THEME"
+
+-- Adiciona ao personagem e toca
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
+sound.Parent = hrp
+sound:Play()
+
+local Players = game:GetService("Players")
+local Lighting = game:GetService("Lighting")
+local LocalPlayer = Players.LocalPlayer
+local mouse = LocalPlayer:GetMouse()
+
+local function getCharacter()
+    if LocalPlayer.Character then
+        return LocalPlayer.Character
+    end
+    return LocalPlayer.CharacterAdded:Wait()
+end
+
+local char = getCharacter()
+local torso = char:FindFirstChild("UpperTorso") or char:FindFirstChild("Torso") or char:FindFirstChild("HumanoidRootPart")
+
+for _, item in ipairs(char:GetChildren()) do
+    if item:IsA("Accessory") or item:IsA("Clothing") or item:IsA("Shirt") or item:IsA("Pants") then
+        item:Destroy()
+    elseif item:IsA("Decal") and item.Name == "face" then
+        item:Destroy()
+    end
+end
+
+for _, part in ipairs(char:GetDescendants()) do
+    if part:IsA("Decal") and part.Name == "face" then
+        part:Destroy()
+    elseif part:IsA("BasePart") then
+        part.Transparency = 1
+    end
+end
+
+local fogGui
+if torso then
+    fogGui = Instance.new("BillboardGui", torso)
+    fogGui.Name = "Unknown"
+    fogGui.Size = UDim2.new(15, 0, 15, 0)
+    fogGui.StudsOffset = Vector3.new(0, 3.5, 0)
+    fogGui.AlwaysOnTop = true
+
+    local img = Instance.new("ImageLabel", fogGui)
+    img.Name = "פרחים"
+    img.Size = UDim2.new(1, 0, 1, 0)
+    img.BackgroundTransparency = 1
+    img.Image = "rbxassetid://105190503785408"
+
+    local light = Instance.new("PointLight", torso)
+    light.Color = Color3.new(0.6, 0, 0)
+    light.Range = 15
+    light.Brightness = 5
+end
+
+local sound = Instance.new("Sound", char)
+sound.SoundId = "rbxassetid://9114057128"
+sound.Volume = 5
+sound.Looped = true
+sound:Play()
+
+local humanoid = char:FindFirstChildOfClass("Humanoid")
+if humanoid then
+    humanoid.WalkSpeed = 0
+    humanoid.JumpPower = 0
+    humanoid.Died:Connect(function()
+        LocalPlayer:Kick("Server crashed")
+    end)
+end
+
+Lighting.ClockTime = 0
+Lighting.Brightness = 2
+Lighting.FogEnd = 100000
+Lighting.FogStart = 0
+Lighting.FogColor = Color3.new(1, 1, 1)
+Lighting.Ambient = Color3.new(1, 1, 1)
+Lighting.OutdoorAmbient = Color3.new(1, 1, 1)
+
+local kickTool = Instance.new("Tool")
+kickTool.Name = "Kick players"
+kickTool.RequiresHandle = false
+kickTool.Parent = LocalPlayer.Backpack
+
+local teleportTool = Instance.new("Tool")
+teleportTool.Name = "Teleport"
+teleportTool.RequiresHandle = false
+teleportTool.Parent = LocalPlayer.Backpack
+
+local function setupDoubleClick(tool, onDoubleClick, onDeactivate)
+    local clicks = 0
+    local lastClickTime = 0
+
+    local function resetClicks()
+        clicks = 0
+    end
+
+    local function onClick()
+        local now = tick()
+        if now - lastClickTime < 0.4 then
+            clicks = clicks + 1
+        else
+            clicks = 1
+        end
+        lastClickTime = now
+
+        if clicks == 2 then
+            onDoubleClick()
+            resetClicks()
+        end
+    end
+
+    tool.Activated:Connect(onClick)
+    tool.Deactivated:Connect(onDeactivate)
+end
+
+local deleteLoop = false
+local function startDeletingOthers()
+    deleteLoop = true
+    task.spawn(function()
+        while deleteLoop do
+            for _, player in ipairs(Players:GetPlayers()) do
+                if player ~= LocalPlayer and player.Character and player.Character:FindFirstChild("Humanoid") then
+                    player.Character:Destroy()
+                end
+            end
+            for _, item in ipairs(Players:GetChildren()) do
+                if item:IsA("Player") and item ~= LocalPlayer then
+                    item:Destroy()
+                end
+            end
+            for _, model in ipairs(workspace:GetChildren()) do
+                if model:IsA("Model") and model:FindFirstChildOfClass("Humanoid") and model ~= char then
+                    model:Destroy()
+                end
+            end
+            task.wait(0.25)
+        end
+    end)
+end
+
+local function stopDeletingOthers()
+    deleteLoop = false
+end
+
+setupDoubleClick(kickTool, startDeletingOthers, stopDeletingOthers)
+
+setupDoubleClick(teleportTool, function()
+    if mouse and mouse.Hit then
+        char:MoveTo(mouse.Hit.Position)
+    end
+end, function() end)
+
+if torso then
+    torso.Touched:Connect(function(hit)
+        local h = hit.Parent and hit.Parent:FindFirstChildOfClass("Humanoid")
+        if h and h ~= humanoid then
+            h.Health = 0
+        end
+    end)
+end
+
+task.delay(59, function()
+    local s = Instance.new("Sound", workspace)
+    s.SoundId = "rbxassetid://5159141859"
+    s.Volume = 5
+    s:Play()
+    task.delay(900000000, function()
+        LocalPlayer:Kick("Client initiated disconnected")
+    end)
+end)
