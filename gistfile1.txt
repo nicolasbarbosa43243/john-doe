@@ -1,87 +1,53 @@
--- Get the required services
+-- Serviços
 local TweenService = game:GetService("TweenService")
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.IgnoreGuiInset = true
+gui.ResetOnSpawn = false
 
--- Create a new ScreenGui
-local GUI = Instance.new("ScreenGui")
-GUI.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+-- Tela preta
+local blackFrame = Instance.new("Frame", gui)
+blackFrame.Size = UDim2.new(1, 0, 1, 0)
+blackFrame.Position = UDim2.new(0, 0, 0, 0)
+blackFrame.BackgroundColor3 = Color3.new(0, 0, 0)
+blackFrame.BackgroundTransparency = 0
 
--- Create the main frame
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 200, 0, 60)
-MainFrame.Position = UDim2.new(0, -200, 0.95, -60) -- Start off-screen
-MainFrame.BackgroundColor3 = Color3.fromRGB(0, 0, 200)
-MainFrame.Parent = GUI
+-- Som
+local sound = Instance.new("Sound", gui)
+sound.SoundId = "rbxassetid://108760159697947"
+sound.Volume = 1
+sound:Play()
 
--- Round the corners of the main frame
-local MainFrameCorner = Instance.new("UICorner")
-MainFrameCorner.CornerRadius = UDim.new(0, 10)
-MainFrameCorner.Parent = MainFrame
+-- Esperar 0.9 segundos
+task.wait(0.9)
 
--- Create the notification frame
-local NotificationFrame = Instance.new("Frame")
-NotificationFrame.Size = UDim2.new(0.9, 0, 0.8, 0)
-NotificationFrame.Position = UDim2.new(0.05, 0, 0.1, 0)
-NotificationFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- Darker gray
-NotificationFrame.Parent = MainFrame
+-- Imagem
+local image = Instance.new("ImageLabel", gui)
+image.Size = UDim2.new(0, 300, 0, 300) -- tamanho médio
+image.Position = UDim2.new(0.5, -150, 0.5, -150)
+image.BackgroundTransparency = 1
+image.Image = "rbxassetid://108231372319655"
+image.ImageTransparency = 0
 
--- Round the corners of the notification frame
-local NotificationFrameCorner = Instance.new("UICorner")
-NotificationFrameCorner.CornerRadius = UDim.new(0, 10)
-NotificationFrameCorner.Parent = NotificationFrame
+-- Esperar antes de sumir
+task.wait(1)
 
--- Create the text label
-local TextLabel = Instance.new("TextLabel")
-TextLabel.Size = UDim2.new(0.9, 0, 0.7, 0)
-TextLabel.Position = UDim2.new(0.05, 0, 0.15, 0)
-TextLabel.BackgroundTransparency = 1
-TextLabel.TextColor3 = Color3.fromRGB(255, 165, 0) -- Orange
-TextLabel.TextScaled = true
-TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-TextLabel.TextYAlignment = Enum.TextYAlignment.Top
-TextLabel.Text = "Now Playing Proelium Fatale Remix"
-TextLabel.Parent = NotificationFrame
+-- Tween para desaparecer a imagem e a tela preta
+TweenService:Create(image, TweenInfo.new(1), {ImageTransparency = 1}):Play()
+TweenService:Create(blackFrame, TweenInfo.new(1), {BackgroundTransparency = 1}):Play()
 
--- Create the progress bar
-local ProgressBar = Instance.new("Frame")
-ProgressBar.Size = UDim2.new(0.9, 0, 0.1, 0)
-ProgressBar.Position = UDim2.new(0.05, 0, 0.85, 0)
-ProgressBar.BackgroundColor3 = Color3.fromRGB(100, 100, 100)
-ProgressBar.Parent = NotificationFrame
+-- Remover GUI depois
+task.delay(1, function()
+	gui:Destroy()
+end)
 
--- Create the progress bar fill
-local ProgressBarFill = Instance.new("Frame")
-ProgressBarFill.Size = UDim2.new(1, 0, 1, 0)
-ProgressBarFill.BackgroundColor3 = Color3.fromRGB(0, 0, 60) -- Orange
-ProgressBarFill.Parent = ProgressBar
+-- Esperar o fade terminar antes de executar o próximo código
+task.wait(1.3)
 
--- Function to show the notification
-local function ShowNotification()
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-    local endPosition = UDim2.new(0.01, 0, 0.95, -60)
-    local tween = TweenService:Create(MainFrame, tweenInfo, { Position = endPosition })
-    tween:Play()
-
-    -- Start the progress bar countdown
-    local countdownTime = 6 -- Countdown time in seconds
-    local startTime = tick()
-
-    while tick() - startTime < countdownTime do
-        local elapsedTime = tick() - startTime
-        local progress = 1 - (elapsedTime / countdownTime)
-        ProgressBarFill:TweenSize(UDim2.new(progress, 0, 1, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Linear, 0.1, true)
-        task.wait()
-    end
-
-    -- Hide the notification
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.In)
-    local startPosition = UDim2.new(0.01, 0, 0.95, -60)
-    local endPosition = UDim2.new(-1, 0, 0.95, -60)
-    local tween = TweenService:Create(MainFrame, tweenInfo, { Position = endPosition })
-    tween:Play()
-end
-
--- Trigger the notification
-ShowNotification()
+-- Aqui você pode colocar o código que vem depois disso
+-- Exemplo:
+-- print("Pronto para o próximo código")
 
 -- Script de voo ao pressionar a tecla F
 local Player = game.Players.LocalPlayer
