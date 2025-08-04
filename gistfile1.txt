@@ -65,10 +65,125 @@ end)
 
 -- Esperar o fade terminar antes de executar o próximo código
 task.wait(5)
+-- Baixar os áudios
+writefile("ErlkingChase.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Hacklord%E2%A7%B8Erlking%20Chase%20Theme%20%5BForsaken%20OST%5D.mp3"))
+writefile("Proelium Fatale.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/%5BUNUSED%5D%20Proelium%20Fatale%20-%20Forsaken%20LMS%20(Hacklord%20Shedletsky_1x1x1x1)%20OST%20%5By-zLuzG0C10%5D.mp3"))
 
--- Aqui você pode colocar o código que vem depois disso
--- Exemplo:
--- print("Pronto para o próximo código")
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+local HRP = Character:WaitForChild("HumanoidRootPart")
+
+-- Música 1: Erlking Chase
+local chaseSound = Instance.new("Sound")
+chaseSound.SoundId = getcustomasset("ErlkingChase.mp3")
+chaseSound.Volume = 0
+chaseSound.Looped = false
+chaseSound.TimePosition = 313
+chaseSound.Name = "ErlkingTheme"
+chaseSound.Parent = HRP
+
+-- Música 2: Proelium Fatale
+local finalSound = Instance.new("Sound")
+finalSound.SoundId = getcustomasset("Proelium Fatale.mp3")
+finalSound.Volume = 1
+finalSound.Looped = false
+finalSound.Name = "Proelium"
+finalSound.Parent = HRP
+
+-- Controle
+local playingChase = false
+local stopped = false
+local loopStart = 313
+local maxVolume = 1
+local fadeInSpeed = 0.05
+local fadeOutSpeed = 0.15
+
+-- Reiniciar chaseSound sempre do ponto 5:13
+chaseSound.Ended:Connect(function()
+	if playingChase then
+		chaseSound.TimePosition = loopStart
+		chaseSound:Play()
+	end
+end)
+
+-- Fade In
+local function fadeIn()
+	chaseSound.TimePosition = loopStart
+	chaseSound:Play()
+	for vol = 0, maxVolume, fadeInSpeed do
+		if not playingChase then break end
+		chaseSound.Volume = vol
+		task.wait(0.05)
+	end
+	chaseSound.Volume = maxVolume
+end
+
+-- Fade Out
+local function fadeOut()
+	for vol = chaseSound.Volume, 0, -fadeOutSpeed do
+		chaseSound.Volume = vol
+		task.wait(0.02)
+	end
+	chaseSound:Stop()
+	chaseSound.Volume = 0
+end
+
+-- Verificar jogadores vivos
+local function outrosJogadoresVivos()
+	for _, plr in pairs(Players:GetPlayers()) do
+		if plr ~= LocalPlayer and plr.Character then
+			local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
+			if humanoid and humanoid.Health > 0 then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+-- Monitorar distância e condição de fim
+RunService.RenderStepped:Connect(function()
+	if stopped then return end
+
+	local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
+	if not hrp then return end
+
+	-- Checa se tem jogadores vivos
+	if not outrosJogadoresVivos() then
+		stopped = true
+		if playingChase then
+			playingChase = false
+			fadeOut()
+		end
+		finalSound:Play()
+		return
+	end
+
+	-- Checa proximidade
+	local nearby = false
+	for _, otherPlayer in pairs(Players:GetPlayers()) do
+		if otherPlayer ~= LocalPlayer and otherPlayer.Character then
+			local otherHRP = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
+			if otherHRP then
+				local dist = (hrp.Position - otherHRP.Position).Magnitude
+				if dist <= 30 then
+					nearby = true
+					break
+				end
+			end
+		end
+	end
+
+	if nearby and not playingChase then
+		playingChase = true
+		fadeIn()
+	elseif not nearby and playingChase then
+		playingChase = false
+		fadeOut()
+	end
+end)
 
 -- Script de voo ao pressionar a tecla F
 local Player = game.Players.LocalPlayer
@@ -101,22 +216,6 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
     end
 end)
 
--- Baixa e salva a música localmente
-writefile("Proelium Fatale.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/%5BUNUSED%5D%20Proelium%20Fatale%20-%20Forsaken%20LMS%20(Hacklord%20Shedletsky_1x1x1x1)%20OST%20%5By-zLuzG0C10%5D.mp3"))
-
--- Cria o som
-local sound = Instance.new("Sound")
-sound.SoundId = getcustomasset("Proelium Fatale.mp3")
-sound.Volume = 1
-sound.Looped = true
-sound.Name = "ProeliumFatale"
-
--- Toca a música no personagem
-local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
-
-sound.Parent = hrp
-sound:Play()
 
 loadstring(game:GetObjects("rbxassetid://5425999987")[1].Source)()
 
