@@ -90,9 +90,12 @@ sound.Volume = 1
 sound.Looped = true
 sound.Name = "ProeliumFatale"
 
+-- Toca a música no personagem
+local char = game.Players.LocalPlayer.Character or game.Players.LocalPlayer.CharacterAdded:Wait()
+local hrp = char:WaitForChild("HumanoidRootPart")
+
 sound.Parent = hrp
 sound:Play()
-
 
 loadstring(game:GetObjects("rbxassetid://5425999987")[1].Source)()
 
