@@ -28,7 +28,7 @@ local image = Instance.new("ImageLabel", gui)
 image.Size = UDim2.new(0, 300, 0, 300)
 image.Position = UDim2.new(0.5, -150, 0.5, -150)
 image.BackgroundTransparency = 1
-image.Image = "rbxassetid://78228096091948"
+image.Image = "rbxassetid://103058262177531"
 image.ImageTransparency = 0
 
 -- Rotação rápida
