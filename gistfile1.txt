@@ -27,7 +27,7 @@ local image = Instance.new("ImageLabel", gui)
 image.Size = UDim2.new(0, 300, 0, 300) -- tamanho médio
 image.Position = UDim2.new(0.5, -150, 0.5, -150)
 image.BackgroundTransparency = 1
-image.Image = "rbxassetid://108231372319655"
+image.Image = "rbxassetid://78228096091948"
 image.ImageTransparency = 0
 
 -- Esperar antes de sumir
