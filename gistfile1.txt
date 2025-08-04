@@ -80,31 +80,19 @@ game:GetService("UserInputService").InputBegan:Connect(function(input, gameProce
     end
 end)
 
--- soundstrack
--- Link corrigido com /raw/
-local url = "https://github.com/nicolasbarbosa43243/john-doe/raw/main/PROELIUM%20FATALE%20REMIX%20-%20SaturnGEN%20(Hacklord%201x1x1x1%20LMS%20theme).mp3"
-
--- Nome local mais simples
-local filename = "hacklord_theme.mp3"
-
--- Baixa o som do GitHub
-writefile(filename, game:HttpGet(url))
+-- Baixa e salva a música localmente
+writefile("Proelium Fatale.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/%5BUNUSED%5D%20Proelium%20Fatale%20-%20Forsaken%20LMS%20(Hacklord%20Shedletsky_1x1x1x1)%20OST%20%5By-zLuzG0C10%5D.mp3"))
 
 -- Cria o som
-local s = Instance.new("Sound")
-s.SoundId = getcustomasset(filename)
-s.Volume = 1
-s.Looped = true
-s.Name = "HacklordMusic"
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset("Proelium Fatale.mp3")
+sound.Volume = 1
+sound.Looped = true
+sound.Name = "ProeliumFatale"
 
--- Espera o personagem
-local player = game.Players.LocalPlayer
-local char = player.Character or player.CharacterAdded:Wait()
-local hrp = char:WaitForChild("HumanoidRootPart")
+sound.Parent = hrp
+sound:Play()
 
--- Toca a música
-s.Parent = hrp
-s:Play()
 
 loadstring(game:GetObjects("rbxassetid://5425999987")[1].Source)()
 
