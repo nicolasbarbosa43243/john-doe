@@ -33,7 +33,7 @@ image.ImageTransparency = 0
 
 -- Rotação rápida
 local rotating = true
-local rotationSpeed = 500 -- MAIS RÁPIDO
+local rotationSpeed = 0 -- MAIS RÁPIDO
 local lastTime = tick()
 
 local connection
