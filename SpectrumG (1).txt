@@ -62,7 +62,7 @@ kan.Volume = 1.25
 kan.TimePosition = 0
 kan.PlaybackSpeed = 1
 kan.Pitch = 1
-kan.SoundId = "rbxassetid://1842940352"
+kan.SoundId = "rbxassetid://88927553987952"
 kan.Name = "wrecked"
 kan.Looped = true
 kan:Play()
