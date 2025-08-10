@@ -149,20 +149,9 @@ TextButton_10.BorderSizePixel = 0
 TextButton_10.Position = UDim2.new(0.61049062, 0, 0.632653058, 0)
 TextButton_10.Size = UDim2.new(0, 144, 0, 40)
 TextButton_10.Font = Enum.Font.SourceSans
-TextButton_10.Text = "RC7"
+TextButton_10.Text = "Rc7"
 TextButton_10.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_10.TextSize = 14.000
-
-TextButton_11.Parent = ImageLabel
-TextButton_11.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_11.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_11.BorderSizePixel = 0
-TextButton_11.Position = UDim2.new(0.0254452918, 0, 0.897959173, 0)
-TextButton_11.Size = UDim2.new(0, 383, 0, 50)
-TextButton_11.Font = Enum.Font.SourceSans
-TextButton_11.Text = "1/2 go to 2/2"
-TextButton_11.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_11.TextSize = 14.000
 
 TextButton_12.Parent = ImageLabel
 TextButton_12.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -174,17 +163,6 @@ TextButton_12.Font = Enum.Font.SourceSans
 TextButton_12.Text = "Particles"
 TextButton_12.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_12.TextSize = 14.000
-
-TextLabel_2.Parent = ScreenGui
-TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_2.BorderSizePixel = 0
-TextLabel_2.Position = UDim2.new(0.413830966, 0, 0.967346966, 0)
-TextLabel_2.Size = UDim2.new(0, 545, 0, 50)
-TextLabel_2.Font = Enum.Font.SourceSans
-TextLabel_2.Text = "https://www.roblox.com/game-pass/1095266120/Prime-For-Script"
-TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextLabel_2.TextSize = 14.000
 
 -- Scripts:
 
