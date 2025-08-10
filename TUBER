@@ -94,7 +94,7 @@ TextButton_4.BorderSizePixel = 0
 TextButton_4.Position = UDim2.new(0.0117981108, 0, 0.502040803, 0)
 TextButton_4.Size = UDim2.new(0, 143, 0, 42)
 TextButton_4.Font = Enum.Font.SourceSans
-TextButton_4.Text = "JUMPSCARE"
+TextButton_4.Text = "Jummscare"
 TextButton_4.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_4.TextSize = 14.000
 
@@ -142,17 +142,6 @@ TextButton_8.Text = "music"
 TextButton_8.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_8.TextSize = 14.000
 
-TextButton_9.Parent = ImageLabel
-TextButton_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_9.BorderSizePixel = 0
-TextButton_9.Position = UDim2.new(0.619605124, 0, 0.502040803, 0)
-TextButton_9.Size = UDim2.new(0, 138, 0, 44)
-TextButton_9.Font = Enum.Font.SourceSans
-TextButton_9.Text = "FE BYPASS (Prime Version)"
-TextButton_9.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_9.TextSize = 14.000
-
 TextButton_10.Parent = ImageLabel
 TextButton_10.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 TextButton_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -182,20 +171,9 @@ TextButton_12.BorderSizePixel = 0
 TextButton_12.Position = UDim2.new(0, 0, 0.773469388, 0)
 TextButton_12.Size = UDim2.new(0, 393, 0, 41)
 TextButton_12.Font = Enum.Font.SourceSans
-TextButton_12.Text = "PARTICLE"
+TextButton_12.Text = "Particles"
 TextButton_12.TextColor3 = Color3.fromRGB(0, 0, 0)
 TextButton_12.TextSize = 14.000
-
-TextButton_13.Parent = ScreenGui
-TextButton_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextButton_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_13.BorderSizePixel = 0
-TextButton_13.Position = UDim2.new(0.780461013, 0, 0, 0)
-TextButton_13.Size = UDim2.new(0, 200, 0, 50)
-TextButton_13.Font = Enum.Font.SourceSans
-TextButton_13.Text = "EMPTY"
-TextButton_13.TextColor3 = Color3.fromRGB(0, 0, 0)
-TextButton_13.TextSize = 14.000
 
 TextLabel_2.Parent = ScreenGui
 TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
