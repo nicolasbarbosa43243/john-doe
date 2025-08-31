@@ -1,189 +1,215 @@
--- Serviços
+-- tocar som imediato ao executar
+local SoundService = game:GetService("SoundService")
+
+local instantSound = Instance.new("Sound")
+instantSound.SoundId = "rbxassetid://108760159697947"
+instantSound.Volume = 1
+instantSound.Looped = false
+instantSound.Parent = SoundService
+instantSound:Play()
+
+--// Intro Heptagrama (rápido 0.01s por linha) com texto e música - LocalScript
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+local SoundService = game:GetService("SoundService")
+
+---------------------------------------------------------------------
+-- util
+local function tween(o, ti)
+	return TweenService:Create(o, TweenInfo.new(unpack(ti.time or {1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out})), ti.props)
+end
+
+local function waitForAbsSize(gui)
+	while gui.AbsoluteSize.X < 2 or gui.AbsoluteSize.Y < 2 do
+		RunService.Heartbeat:Wait()
+	end
+end
+
+local function makeLine(parent, p1, p2, thickness, color)
+	local dx, dy = p2.X - p1.X, p2.Y - p1.Y
+	local len = math.sqrt(dx*dx + dy*dy)
+	local ang = math.deg(math.atan2(dy, dx))
+
+	local line = Instance.new("Frame")
+	line.Name = "Line"
+	line.AnchorPoint = Vector2.new(0.5, 0.5)
+	line.BackgroundColor3 = color
+	line.BorderSizePixel = 0
+	line.Size = UDim2.fromOffset(len, thickness)
+	line.Position = UDim2.fromOffset((p1.X+p2.X)/2, (p1.Y+p2.Y)/2)
+	line.Rotation = ang
+	line.BackgroundTransparency = 1
+
+	local glow = Instance.new("UIStroke")
+	glow.Thickness = thickness
+	glow.Color = color
+	glow.Transparency = 1
+	glow.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	glow.Parent = line
+
+	line.Parent = parent
+	return line, glow
+end
+
+local function polygonPoints(n, radius, center, rotDeg)
+	local pts = {}
+	local rot = math.rad(rotDeg or 0)
+	for i = 0, n-1 do
+		local a = (i/n)*math.pi*2 + rot
+		table.insert(pts, Vector2.new(
+			center.X + math.cos(a)*radius,
+			center.Y + math.sin(a)*radius
+		))
+	end
+	return pts
+end
+
+local function starPath(n, step)
+	local seq = {}
+	local i = 0
+	for _ = 1, n do
+		table.insert(seq, i+1)
+		i = (i + step) % n
+	end
+	table.insert(seq, seq[1])
+	return seq
+end
+
+---------------------------------------------------------------------
+-- GUI base
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+local gui = Instance.new("ScreenGui")
+gui.Name = "IntroHeptagrama"
 gui.IgnoreGuiInset = true
 gui.ResetOnSpawn = false
+gui.Parent = playerGui
 
--- Tela preta
-local blackFrame = Instance.new("Frame", gui)
-blackFrame.Size = UDim2.new(1, 0, 1, 0)
-blackFrame.Position = UDim2.new(0, 0, 0, 0)
-blackFrame.BackgroundColor3 = Color3.new(0, 0, 0)
-blackFrame.BackgroundTransparency = 0
+local backdrop = Instance.new("Frame")
+backdrop.Name = "Backdrop"
+backdrop.BackgroundColor3 = Color3.new(0,0,0)
+backdrop.Size = UDim2.fromScale(1,1)
+backdrop.Parent = gui
 
--- Som
-local sound = Instance.new("Sound", gui)
-sound.SoundId = "rbxassetid://108760159697947"
+local container = Instance.new("Frame")
+container.Name = "Container"
+container.AnchorPoint = Vector2.new(0.5,0.5)
+container.Position = UDim2.fromScale(0.5,0.5)
+container.Size = UDim2.fromScale(0.4,0.4)
+container.BackgroundTransparency = 1
+container.Parent = backdrop
+
+local aspect = Instance.new("UIAspectRatioConstraint")
+aspect.AspectRatio = 1
+aspect.Parent = container
+
+waitForAbsSize(container)
+
+---------------------------------------------------------------------
+-- gerar camadas de heptagrama
+local CENTER = Vector2.new(container.AbsoluteSize.X/2, container.AbsoluteSize.Y/2)
+local color = Color3.fromRGB(120, 10, 10)
+local baseRadius = math.min(container.AbsoluteSize.X, container.AbsoluteSize.Y)*0.42
+local step = 2
+
+local layers = {
+	{r = baseRadius*1.00, rot =   0, thickness = 4},
+	{r = baseRadius*0.86,  rot =  10, thickness = 3},
+	{r = baseRadius*0.72,  rot = -12, thickness = 3},
+}
+
+local allLines = {}
+
+for _, layer in ipairs(layers) do
+	local pts = polygonPoints(7, layer.r, CENTER, layer.rot)
+	local seq = starPath(7, step)
+
+	for i = 1, #seq-1 do
+		local jx1, jy1 = math.random(-3,3), math.random(-3,3)
+		local jx2, jy2 = math.random(-3,3), math.random(-3,3)
+
+		local p1 = pts[seq[i]] + Vector2.new(jx1, jy1)
+		local p2 = pts[seq[i+1]] + Vector2.new(jx2, jy2)
+
+		local line, glow = makeLine(container, p1, p2, layer.thickness, color)
+		table.insert(allLines, {line=line, glow=glow})
+	end
+end
+
+---------------------------------------------------------------------
+-- animação rápida do heptagrama
+local drawTimePerLine = 0.01
+local glowMax = 0.4
+
+for _, pair in ipairs(allLines) do
+	local line, glow = pair.line, pair.glow
+	tween(line, {time={drawTimePerLine}, props={BackgroundTransparency = 0.15}}):Play()
+	tween(glow, {time={drawTimePerLine}, props={Transparency = 1 - glowMax}}):Play()
+	task.wait(drawTimePerLine)
+end
+
+---------------------------------------------------------------------
+-- Texto central
+local title = Instance.new("TextLabel")
+title.Name = "Title"
+title.AnchorPoint = Vector2.new(0.5,0.5)
+title.Position = UDim2.fromScale(0.5, 0.5)
+title.Size = UDim2.fromScale(1, 0.3)
+title.BackgroundTransparency = 1
+title.Text = "PROELIUM FATALE"
+title.TextColor3 = Color3.fromRGB(200, 0, 0)
+title.TextScaled = true
+title.Font = Enum.Font.Antique
+title.TextTransparency = 1
+title.Parent = container
+
+local address = Instance.new("TextLabel")
+address.Name = "Address"
+address.AnchorPoint = Vector2.new(0.5,0)
+address.Position = UDim2.fromScale(0.5, 0.7)
+address.Size = UDim2.fromScale(1, 0.2)
+address.BackgroundTransparency = 1
+address.Text = "ender IS here"
+address.TextColor3 = Color3.fromRGB(255, 215, 0)
+address.TextScaled = true
+address.Font = Enum.Font.Antique
+address.TextTransparency = 1
+address.Parent = container
+
+-- aparecer texto
+tween(title, {time={0.8}, props={TextTransparency = 0}}):Play()
+task.wait(0.4)
+tween(address, {time={0.8}, props={TextTransparency = 0}}):Play()
+
+-- tocar música quando o título aparecer
+local url = "https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Through%20Patches%20of%20Violet%20(Hacklord%201x1x1x1%20LMS)%20-%20FORSAKEN%20OST.mp3"
+local filename = "Through Patches of Violet.mp3"
+writefile(filename, game:HttpGet(url))
+
+local sound = Instance.new("Sound")
+sound.SoundId = getcustomasset(filename)
 sound.Volume = 1
+sound.Looped = true
+sound.Parent = SoundService
 sound:Play()
 
--- Esperar 0.9 segundos
-task.wait(0.9)
-
--- Imagem
-local image = Instance.new("ImageLabel", gui)
-image.Size = UDim2.new(0, 300, 0, 300)
-image.Position = UDim2.new(0.5, -150, 0.5, -150)
-image.BackgroundTransparency = 1
-image.Image = "rbxassetid://103058262177531"
-image.ImageTransparency = 0
-
--- Rotação rápida
-local rotating = true
-local rotationSpeed = 0 -- MAIS RÁPIDO
-local lastTime = tick()
-
-local connection
-connection = RunService.RenderStepped:Connect(function()
-	if not rotating then
-		connection:Disconnect()
-		return
-	end
-
-	local now = tick()
-	local delta = now - lastTime
-	lastTime = now
-
-	image.Rotation = (image.Rotation + rotationSpeed * delta) % 360
-end)
-
--- Esperar antes de sumir
+-- espera 1 segundo com o texto e música visíveis
 task.wait(1)
 
--- Parar rotação e desaparecer a imagem e a tela preta ao mesmo tempo
-rotating = false
-TweenService:Create(image, TweenInfo.new(1), {ImageTransparency = 1}):Play()
-TweenService:Create(blackFrame, TweenInfo.new(1), {BackgroundTransparency = 1}):Play()
-
--- Remover GUI depois
-task.delay(5, function()
-	gui:Destroy()
-end)
-
--- Esperar o fade terminar antes de executar o próximo código
-task.wait(5)
--- Baixar os áudios
-writefile("ErlkingChase.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/Hacklord%E2%A7%B8Erlking%20Chase%20Theme%20%5BForsaken%20OST%5D.mp3"))
-writefile("Proelium Fatale.mp3", game:HttpGet("https://raw.githubusercontent.com/nicolasbarbosa43243/john-doe/main/%5BUNUSED%5D%20Proelium%20Fatale%20-%20Forsaken%20LMS%20(Hacklord%20Shedletsky_1x1x1x1)%20OST%20%5By-zLuzG0C10%5D.mp3"))
-
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local LocalPlayer = Players.LocalPlayer
-local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
-local HRP = Character:WaitForChild("HumanoidRootPart")
-
--- Música 1: Erlking Chase
-local chaseSound = Instance.new("Sound")
-chaseSound.SoundId = getcustomasset("ErlkingChase.mp3")
-chaseSound.Volume = 0
-chaseSound.Looped = false
-chaseSound.TimePosition = 313
-chaseSound.Name = "ErlkingTheme"
-chaseSound.Parent = HRP
-
--- Música 2: Proelium Fatale
-local finalSound = Instance.new("Sound")
-finalSound.SoundId = getcustomasset("Proelium Fatale.mp3")
-finalSound.Volume = 1
-finalSound.Looped = false
-finalSound.Name = "Proelium"
-finalSound.Parent = HRP
-
--- Controle
-local playingChase = false
-local stopped = false
-local loopStart = 313
-local maxVolume = 1
-local fadeInSpeed = 0.05
-local fadeOutSpeed = 0.15
-
--- Reiniciar chaseSound sempre do ponto 5:13
-chaseSound.Ended:Connect(function()
-	if playingChase then
-		chaseSound.TimePosition = loopStart
-		chaseSound:Play()
-	end
-end)
-
--- Fade In
-local function fadeIn()
-	chaseSound.TimePosition = loopStart
-	chaseSound:Play()
-	for vol = 0, maxVolume, fadeInSpeed do
-		if not playingChase then break end
-		chaseSound.Volume = vol
-		task.wait(0.05)
-	end
-	chaseSound.Volume = maxVolume
+---------------------------------------------------------------------
+-- fade out final
+local outroFade = 0.9
+for _, pair in ipairs(allLines) do
+	local line, glow = pair.line, pair.glow
+	tween(line, {time={outroFade}, props={BackgroundTransparency = 1}}):Play()
+	tween(glow, {time={outroFade}, props={Transparency = 1}}):Play()
 end
+tween(title, {time={outroFade}, props={TextTransparency = 1}}):Play()
+tween(address, {time={outroFade}, props={TextTransparency = 1}}):Play()
+tween(backdrop, {time={outroFade}, props={BackgroundTransparency = 1}}):Play()
 
--- Fade Out
-local function fadeOut()
-	for vol = chaseSound.Volume, 0, -fadeOutSpeed do
-		chaseSound.Volume = vol
-		task.wait(0.02)
-	end
-	chaseSound:Stop()
-	chaseSound.Volume = 0
-end
-
--- Verificar jogadores vivos
-local function outrosJogadoresVivos()
-	for _, plr in pairs(Players:GetPlayers()) do
-		if plr ~= LocalPlayer and plr.Character then
-			local humanoid = plr.Character:FindFirstChildOfClass("Humanoid")
-			if humanoid and humanoid.Health > 0 then
-				return true
-			end
-		end
-	end
-	return false
-end
-
--- Monitorar distância e condição de fim
-RunService.RenderStepped:Connect(function()
-	if stopped then return end
-
-	local hrp = LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart")
-	if not hrp then return end
-
-	-- Checa se tem jogadores vivos
-	if not outrosJogadoresVivos() then
-		stopped = true
-		if playingChase then
-			playingChase = false
-			fadeOut()
-		end
-		finalSound:Play()
-		return
-	end
-
-	-- Checa proximidade
-	local nearby = false
-	for _, otherPlayer in pairs(Players:GetPlayers()) do
-		if otherPlayer ~= LocalPlayer and otherPlayer.Character then
-			local otherHRP = otherPlayer.Character:FindFirstChild("HumanoidRootPart")
-			if otherHRP then
-				local dist = (hrp.Position - otherHRP.Position).Magnitude
-				if dist <= 30 then
-					nearby = true
-					break
-				end
-			end
-		end
-	end
-
-	if nearby and not playingChase then
-		playingChase = true
-		fadeIn()
-	elseif not nearby and playingChase then
-		playingChase = false
-		fadeOut()
-	end
-end)
+task.wait(outroFade + 0.1)
+gui:Destroy()
 
 -- Script de voo ao pressionar a tecla F
 local Player = game.Players.LocalPlayer
